@@ -6,8 +6,8 @@ En este repositorio encontrarás los archivos de entrada, así como las salidas 
 ```
 // =========================================================
 // File: main.cpp
-// Author: Edward Elric - A00123456
-// Date: 01/01/2021
+// Author: Daniel Hurtado - A01707774
+// Date: 23 / 11 / 2022
 // =========================================================
 ```
 <span style="text-decoration: underline;">De manera individual</span>, desarrolla la solución del siguiente problema:

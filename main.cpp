@@ -8,7 +8,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "hash.h"
+#include <map>
+// #include "hash.h"
 
 using namespace std;
 
@@ -33,26 +34,50 @@ int main(int argc, char* argv[]) {
 	}
 
 	// Leer archivos de entrada
-	int num_jobs, num_salaries;
-	inputFile >> num_jobs >> num_salaries;
+	int num_jobs, num_paragraphs;
+	inputFile >> num_jobs >> num_paragraphs;
 
-	// Leer archivo de entrada
 	string job;
 	int salary = 0;
 
-	for (int i = 0; i < num_salaries; i++)
+	// Crear tabla hash
+	map<string, int> salaries;
+
+	// Almancenar los trabajos y su salario en la tabla hash
+
+	for (int i = 0; i < num_jobs; i++)
 	{
 		inputFile >> job >> salary;
-		// Agregar a la tabla hash
-		add(job, salary);
+		salaries[job] = salary;
 	}
+
+	// Leer la descripcion del puesto y buscar el salario
+	string job_description;
+	int salary_sum = 0;
+
+	while (true)
+	{
+		for (int i = 0; i < num_paragraphs; i++)
+		{
+			inputFile >> job_description;
+			if(job_description == ".")
+			{
+				break;
+				i--;
+			}
+			if (salaries.find(job_description) != salaries.end())
+			{
+				salary_sum += salaries[job_description];
+				outputFile << salary_sum << endl;
+				salary_sum = 0;
+			}
+		}
+	}
+
 
 	// Cerrar los archivos
 	inputFile.close();
 	outputFile.close();
-	
-	
-	
 	
 	return 0;
 }
@@ -64,22 +89,28 @@ Objetivo:
 
 Descripcion:
 Cada empleado tiene una descripción de su puesto de trabajo.
-Una descripción contiene unos pocos párrafos que describe las responsabilidad del puesto
+Descripción contiene pocos párrafos que describe las responsabilidad del puesto
 Esta, junto con otros factores, como la antigüedad, se utiliza para determinar su salario.
 la descripción del puesto simplemente se escanea en busca de palabras y frases que indiquen responsabilidad.
 las descripciones de puestos que indican el control de un gran presupuesto o la gestión de un gran número de personas producen puntuaciones alta
 
 Input:
-Recibirás como entrada un diccionario y una serie de descripciones de puestos. 
-La primera línea de entrada contiene 2 números enteros positivos: m ≤ 1,000, el número de palabras en diccionario "Unlimited Seas", y n ≤ 100, el número de descripciones de puestos. 
-Las siguientes m líneas; cada una contiene una palabra y un valor en dólares
+m, número de palabras en diccionario "Unlimited Seas"
+n, el número de descripciones de puestos (parrafos). 
+Siguientes m líneas; (puesto, $salario)
 Las n descripciones de puestos.
 Descripción de puesto de trabajo consta de uno o más líneas de texto.
 
 
 TODO:
-Para cada descripción, deberás calcular el salario asociado con el puesto, de acuerdo con el sistema.
+Calcular el salario asociado con el puesto.
 
 Output:
+
+Notas:
+Utilizar tabla de dispersio
+Se conoce como diccionario. Mapa en c++
+
+
 
 */

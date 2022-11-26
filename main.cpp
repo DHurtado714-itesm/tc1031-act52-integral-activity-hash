@@ -54,24 +54,20 @@ int main(int argc, char* argv[]) {
 	// Leer la descripcion del puesto y buscar el salario
 	string job_description;
 	int salary_sum = 0;
+	
 
-	while (true)
+	for (int i = 0; i < num_paragraphs; i++)
 	{
-		for (int i = 0; i < num_paragraphs; i++)
+		inputFile >> job_description;
+		salary_sum += salaries[job_description];
+
+		while(job_description != ".")
 		{
 			inputFile >> job_description;
-			if(job_description == ".")
-			{
-				break;
-				i--;
-			}
-			if (salaries.find(job_description) != salaries.end())
-			{
-				salary_sum += salaries[job_description];
-				outputFile << salary_sum << endl;
-				salary_sum = 0;
-			}
+			salary_sum += salaries[job_description];
 		}
+		outputFile << salary_sum << endl;
+		salary_sum = 0;
 	}
 
 
